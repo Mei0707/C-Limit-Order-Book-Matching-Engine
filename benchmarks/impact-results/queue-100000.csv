@@ -1,0 +1,4 @@
+experiment,allocator,seed,run,active_orders,instruments,commands,processed,elapsed_seconds,commands_per_second,service_samples,service_p50_ns,service_p95_ns,service_p99_ns,service_sample_max_ns,e2e_samples,e2e_p50_ns,e2e_p99_ns,e2e_sample_max_ns,book_bytes,peak_book_bytes,system_allocations_per_command,rejected,trades,queue_max_occupancy,queue_full_retries,lost_commands,offered_rate,sample_stride,checksum,price_levels
+queue,pooled,42,1,100000,4,200000,200000,1.999990375,100000.481252,1575,83,458,3167,12375,1575,625,154750,2665416,13630808,13630808,0,0,50000,272,0,0,100000,127,3989190105241630972,128
+queue,pooled,42,2,100000,4,200000,200000,1.999990542,100000.472902,1575,83,459,1333,3875,1575,750,121750,2329167,13630808,13630808,0,0,50000,272,0,0,100000,127,3989190105241630972,128
+queue,pooled,42,3,100000,4,200000,200000,1.999990375,100000.481252,1575,83,416,3250,4875,1575,541,29083,634333,13630808,13630808,0,0,50000,73,0,0,100000,127,3989190105241630972,128

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "cpu": "Apple M2 Pro",
+  "sustained_commands_per_second": 19256768.4728,
+  "sampled_service_p99_ns": 166.0,
+  "throughput_ratio": 2.494708119652002,
+  "max_live_orders": 1000000,
+  "large_book_bytes": 136034952.0,
+  "differential_commands": 1000000,
+  "implementation_comparisons": 2000000,
+  "queue_commands": 141600000,
+  "benchmark_commands": 553600000
+}

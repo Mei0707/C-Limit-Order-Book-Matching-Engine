@@ -2,6 +2,23 @@
 
 An in-memory, multi-instrument exchange simulator implementing the supplied [Project Proposal.pdf](Project%20Proposal.pdf). Matching uses price-time priority, integer prices and one writer per engine. The repository includes a command-line simulator, deterministic replay, Google Test correctness tests, an independent reference matcher, a bounded SPSC queue and reproducible allocation/latency benchmarks.
 
+<!-- impact:start -->
+## Measured results
+
+Local Apple M2 Pro results, C++20 Release. Throughput uses the median of three runs per allocator, each lasting at least five seconds. The workload is synthetic; latency measures sampled in-process command handling.
+
+| Metric | Result |
+|---|---|
+| Mixed-flow throughput, 100K live orders / four instruments | **19.26M commands/s** |
+| Sampled processing p99 | **0.166 µs** |
+| Pooled vs baseline throughput | **2.49×** |
+| Separately tested book capacity | **1,000,000 simultaneous live orders** |
+| Differential correctness | **1,000,000 commands, 20 seeds, zero observed mismatches** |
+| Queue delivery checks under offered load | **141,600,000 commands, zero observed loss/duplication** |
+
+[Results and charts](docs/impact.md) · [Resume bullets and demo](docs/resume.md) · [Raw data and source hashes](benchmarks/impact-results/manifest.json)
+<!-- impact:end -->
+
 ## Build and test
 
 Requires CMake 3.20+, a C++20 compiler, and threads. Google Test is used only for tests. CMake uses an installed Google Test 1.15+ package or downloads pinned release v1.15.2 when `LOB_FETCH_GTEST=ON` (default). To build completely offline, provide `GTest_DIR`, or disable tests with `-DLOB_BUILD_TESTS=OFF`.
@@ -107,6 +124,15 @@ Profiles cover resting insertion, cancellation churn, aggressive markets, mixed 
 
 The proposal's 100K/1M commands per second and latency budgets are engineering targets. [The report](docs/performance.md) contains measured local results, repeated-run ranges and measurement limits.
 
+For the extended evidence suite, including sustained random-access flow, one-million-order scaling, scheduled-arrival queue latency, and a million-command oracle/replay run:
+
+```sh
+python3 scripts/run_impact.py
+python3 scripts/impact_report.py
+```
+
+Experiments run sequentially and save a hardware/source manifest plus raw CSV/JSON under `benchmarks/impact-results`. `lob_impact --help` and `lob_stress --help` document the individual test programs. A smaller smoke run is available with `python3 scripts/run_impact.py --quick --output build/impact-smoke`.
+
 ## Layout
 
 ```text
@@ -120,4 +146,4 @@ examples/        Proposal example and lifecycle commands
 docs/            Design, requirement mapping, validation and performance report
 ```
 
-Resume summary: Built a C++20 multi-instrument matching engine with price-time priority, IOC/FOK, indexed cancellation, deterministic replay, pooled allocation and bounded SPSC ingestion; validated against an independent reference matcher and measured throughput and latency across six reproducible workload profiles. Add hardware-specific numbers from the measured report when using this summary.
+Resume wording with measured numbers and a short recruiter demonstration: [resume.md](docs/resume.md).

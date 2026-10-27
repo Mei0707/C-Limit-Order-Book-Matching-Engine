@@ -5,8 +5,8 @@ Validated on the local Apple M2 Pro / macOS 26.5.2 host using Apple Clang 14.0.3
 | Check | Outcome |
 |---|---|
 | Release build (`-O3 -DNDEBUG`) | Passed, library, simulator, tests and benchmark |
-| Google Test / CTest | 51/51 passed |
-| Debug + UndefinedBehaviorSanitizer, non-recovering | 51/51 passed |
+| Google Test / CTest | 54/54 passed |
+| Debug + UndefinedBehaviorSanitizer, non-recovering | 54/54 passed |
 | Randomized differential matching | 50,000 commands; events, full order states, depth, quotes, volume and invariants compared after every operation |
 | Same-price stress | 20,000 initial orders, 10,000 cancellations, then a 10,000-maker sweep, under both allocation modes |
 | Concurrent ingestion | 100,000 commands in exact order through a two-slot queue; no loss/duplication; empty input and consumer exceptions terminate correctly |
@@ -15,6 +15,13 @@ Validated on the local Apple M2 Pro / macOS 26.5.2 host using Apple Clang 14.0.3
 | CLI failure paths | Detects replay mismatches before writing output, rejects malformed trailing input, and prevents output/input path collisions |
 | Stateful benchmarks | Six profiles, three repetitions, both allocators; burst also queued; additional 1,000/50,000-order mixed profiles |
 | Benchmark correctness | No rejected or dropped commands; each configuration's repeated and allocator-comparison checksums match |
+| Extended random oracle/replay run | 1,000,000 commands / 20 seeds, 2,000,000 implementation comparisons, zero mismatches; fresh-engine replay identical for every seed |
+| Extended capacity experiment | 1,000,000 live orders across four instruments; three fixed-batch repetitions under each allocator, full final-state and invariant verification |
+| Extended sustained experiment | Three runs of at least five seconds under each allocator, 100,000 live orders, random indexed lifecycle workload |
+| Scheduled-arrival queue experiment | 141,600,000 commands offered across 100K–16M commands/s configurations, including overload; exact ordinals/counts and post-drain accounting checked; zero observed loss or duplication |
+| Extended harness under UBSan | 54/54 unit cases, a 10,000-command oracle/replay smoke run, and a scheduled-arrival queue smoke run passed |
+
+Extended results, method and data: [impact.md](impact.md). Ready-to-use resume wording: [resume.md](resume.md).
 
 The proposal CLI example processes fourteen commands: thirteen accepted, one invalid-tick rejection, three live orders, traded volume 220, final checksum `6521155281173364438`. The first incoming crossing limit executes exactly 80 at 10000 and 70 at 10050.
 
