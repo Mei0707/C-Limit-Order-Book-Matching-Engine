@@ -1,0 +1,4 @@
+/build*/
+*.profraw
+*.dSYM/
+__pycache__/

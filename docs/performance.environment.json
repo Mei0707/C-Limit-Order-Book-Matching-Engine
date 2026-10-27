@@ -1,0 +1,17 @@
+{
+  "os": "macOS-26.5.2-arm64-arm-64bit",
+  "architecture": "arm64",
+  "logical_cpus": 10,
+  "compiler": "Apple clang version 14.0.3 (clang-1403.0.22.14.1)",
+  "build_type": "Release",
+  "CMAKE_BUILD_TYPE": "Release",
+  "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+  "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+  "hardware": {
+    "chip_type": "Apple M2 Pro",
+    "machine_model": "Mac14,9",
+    "machine_name": "MacBook Pro",
+    "number_processors": "proc 10:6:4:0",
+    "physical_memory": "16 GB"
+  }
+}
